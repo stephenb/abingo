@@ -93,8 +93,8 @@ class Abingo
           cache_key = "Abingo::conversions(#{Abingo.identity},#{test_name_str})".gsub(" ","")
           if options[:multiple_conversions] || !Abingo.cache.get(cache_key)
             Abingo::Alternative.score_conversion(test_name_str)
-            if Abingo.cache.exist?(cache_key)
-              Abingo.cache.increment(cache_key)
+            if hits = Abingo.cache.get(cache_key)
+              Abingo.cache.set(cache_key, hits+1)
             else
               Abingo.cache.add(cache_key, 1)
             end
