@@ -90,7 +90,7 @@ class Abingo
       else #Individual, non-nil test is named
         test_name_str = test_name_or_array.to_s
         if options[:assume_participation] || participating_tests.include?(test_name_str)
-          cache_key = "Abingo::conversions(#{Abingo.identity},#{test_name_str}"
+          cache_key = "Abingo::conversions(#{Abingo.identity},#{test_name_str})".gsub(" ","")
           if options[:multiple_conversions] || !Abingo.cache.get(cache_key)
             Abingo::Alternative.score_conversion(test_name_str)
             if Abingo.cache.exist?(cache_key)
